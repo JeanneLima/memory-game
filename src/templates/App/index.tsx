@@ -1,7 +1,8 @@
+import { Card } from '../../components/Card'
 import './styles.css'
 
 export function App() {
-  return <p>Oi</p>
+  return <Card />
 }
 
 export default App
