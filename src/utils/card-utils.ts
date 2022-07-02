@@ -23,5 +23,3 @@ export const regenerateCard = (cards: CardProps[]): CardProps[] => {
 export const duplicateRegenerateSortArray = (cards: CardProps[]): CardProps[] => {
   return sortArray(regenerateCard(duplicateArray(cards)))
 }
-
-console.log(duplicateRegenerateSortArray(cards))
