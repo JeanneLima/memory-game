@@ -14,6 +14,8 @@ export function Grid({cards}: GridProps) {
   const firstSelectedCard = useRef<CardProps | null>(null)
   const secondSelectedCard = useRef<CardProps | null>(null)
   const unflipCards = useRef(false)
+  const [matches, setMatches] = useState(0)
+  const [moves, setMoves] = useState(0)
 
   const handleClick = (id: string) => {
     const newStateCards = stateCards.map((card: CardProps) => {
@@ -49,10 +51,14 @@ export function Grid({cards}: GridProps) {
           // O jogador acertou
           firstSelectedCard.current = null
           secondSelectedCard.current = null
+          setMatches(matchesCount => matchesCount + 1)
         } else {
           // O jogador errou
           unflipCards.current = true
         }
+
+        // A cada par de cards selecionados é contado 1 movimento do jogador
+        setMoves(movesCount => movesCount + 1)
       }
 
       return card;
@@ -62,10 +68,18 @@ export function Grid({cards}: GridProps) {
   }
 
   return (
-    <div className="grid">
-      {stateCards.map((card: CardProps) => {
-        return <Card {...card} key={card.id} handleClick={handleClick} />
-      })}
-    </div>
+    <>
+      <div className="text">
+        <h1>Memory Game</h1>
+        <p>
+          Moves: {moves} | Matches: {matches} | <button>Reset</button>
+        </p>
+      </div>
+      <div className="grid">
+        {stateCards.map((card: CardProps) => {
+          return <Card {...card} key={card.id} handleClick={handleClick} />
+        })}
+      </div>
+    </>
   )
 }
